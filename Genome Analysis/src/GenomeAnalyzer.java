@@ -57,7 +57,7 @@ public class GenomeAnalyzer {
                 for (int j = 0; j < codons.size(); j++) {
                     if(codons.get(j).equals(tokens[i])){
                         aminoAcid.countCodon(j);
-                        break;
+                        break; //amino acid found
                     }
                 }
             }
