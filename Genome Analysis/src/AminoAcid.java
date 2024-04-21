@@ -4,11 +4,14 @@ public class AminoAcid {
     private String fullName;
     private char singleLetterCode;
     private List<String> codons;
+    private int[] codonCounts;
 
     public AminoAcid(String fullName, char singleLetterCode, List<String> codons) {
         this.fullName = fullName;
         this.singleLetterCode = singleLetterCode;
         this.codons = codons;
+
+        codonCounts = new int[codons.size()];
     }
 
     public String getFullName() {
@@ -85,5 +88,41 @@ public class AminoAcid {
 
     public List<String> getCodons() {
         return codons;
+    }
+
+    /**
+     * gets the codonCounts array length
+     * @return codonCounts array length
+     */
+    public int getCodonsLength(){
+        return codonCounts.length;
+    }
+
+    /**
+     * gets the codon count at i
+     * @param i index
+     * @return codon count as a int
+     */
+    public int getCodonCount(int i){
+        return codonCounts[i];
+    }
+
+    /**
+     * adds 1 to codonCount at i
+     * @param i index
+     */
+    public void countCodon(int i){
+        codonCounts[i]++;
+    }
+
+    @Override
+    public String toString(){
+        String str = getFullName() + '\n';
+
+        for (int i = 0; i < codonCounts.length; i++) {
+            str += codons.get(i) + " : " + codonCounts[i] + '\n';
+        }
+
+        return str;
     }
 }

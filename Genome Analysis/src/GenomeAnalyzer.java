@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -12,13 +13,25 @@ public class GenomeAnalyzer {
     private ArrayList<Gene> genes;
 
     /**
-     * Takes a Sequence file, does not start analysis
-     * @param sequenceFile Genome sequence file
+     * Takes a Sequence file and aminoAcids, start analysis
+     * @param sequenceFile sequence file
+     * @throws IOException
      */
-    public GenomeAnalyzer(File sequenceFile, File AminoAcidsFile) throws IOException
+    public GenomeAnalyzer(File sequenceFile, AminoAcid[] aminoAcids) throws IOException
     {
         this.sequenceFile = sequenceFile;
-        loadAminoAcids(AminoAcidsFile);
+        this.aminoAcids = aminoAcids;
+        analyzeGenome();
+    }
+
+    /**
+     * copys a genomeAnalyzer
+     * @param genomeAnalyzer analyzer to clone
+     * @throws IOException
+     */
+    public GenomeAnalyzer(GenomeAnalyzer genomeAnalyzer) throws IOException{
+        sequenceFile = genomeAnalyzer.sequenceFile;
+        aminoAcids = genomeAnalyzer.aminoAcids;
         analyzeGenome();
     }
 
@@ -29,22 +42,39 @@ public class GenomeAnalyzer {
     private void analyzeGenome() throws IOException{
         Scanner in = new Scanner(sequenceFile);
         
-        /*aminoAcidCounts = new int[aminoAcids.length];
-        aminoAcidTotal = 0;*/
+        //reset aminoAcids and genes
+        //cloneAminoAcids(aminoAcids); 
         genes = new ArrayList<>();
 
+        //gets amino acids from file
+        String line = in.nextLine();
+        String[] tokens = line.split(",");
+        
+        for (int i = 0; i < tokens.length; i++) {
+            for (AminoAcid aminoAcid : aminoAcids) {
+                List<String> codons = aminoAcid.getCodons();
+
+                for (int j = 0; j < codons.size(); j++) {
+                    if(codons.get(j).equals(tokens[i])){
+                        aminoAcid.countCodon(j);
+                        break;
+                    }
+                }
+            }
+        }
 
         in.close();
     }
 
     /**
-     * Loads amino acids from a csv file
-     * @param file file location
+     * Clones amino acids resetting the counter
+     * @param acids array of all acids
      */
-    private void loadAminoAcids(File file){
-
+    private void cloneAminoAcids(AminoAcid[] acids){
+        aminoAcids = new AminoAcid[acids.length];
+        
     }
-
+    
     /**
      * gets the AminoAcid in aminoAcids array at i
      * @param i index
@@ -95,5 +125,16 @@ public class GenomeAnalyzer {
         }
 
         return equal;
+    }
+
+    public GenomeAnalyzer clone(){
+        GenomeAnalyzer analyzer = null;
+        try{
+            analyzer = new GenomeAnalyzer(this);
+        }catch(IOException e){
+            analyzer = null;
+        }
+
+        return analyzer;
     }
 }
