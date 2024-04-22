@@ -10,7 +10,7 @@ public class AminoAcid {
         this.singleLetterCode = singleLetterCode;
         this.codons = codons;
     }
-
+    
     public String getFullName() {
         switch (singleLetterCode) {
             case 'A':
@@ -86,4 +86,10 @@ public class AminoAcid {
     public List<String> getCodons() {
         return codons;
     }
+
+    @Override
+    public String toString() {
+        return "AminoAcid " + fullName + ", " + singleLetterCode + ", " + codons;
+    }
+    
 }
