@@ -3,10 +3,10 @@ public class Gene {
     private int startNucleotide;
     private int endNucleotide;
 
-    public Gene(String aminoAcidSequence, int startNucleotide, int endNucleotide) {
-        this.aminoAcidSequence = aminoAcidSequence;
+    public Gene(int startNucleotide){
         this.startNucleotide = startNucleotide;
-        this.endNucleotide = endNucleotide;
+        this.endNucleotide = startNucleotide;
+        aminoAcidSequence = "";
     }
 
     public String getAminoAcidSequence() {
@@ -21,7 +21,24 @@ public class Gene {
         return endNucleotide;
     }
 
-    public int getGeneLength() {
+    public int getAminoAcidLength() {
+        return (endNucleotide - startNucleotide + 1) / 3;
+    }
+
+    public int getNucleotideLength() {
         return endNucleotide - startNucleotide + 1;
+    }
+
+    /**
+     * adds a amino acid to the sequence
+     * @param aminoAcid amino acid single letter code
+     */
+    public void addAminoAcid(char aminoAcid){
+        aminoAcidSequence += aminoAcid;
+        endNucleotide += 3;
+    }
+
+    public String toString(){
+        return startNucleotide + ".." + endNucleotide + "\n" + aminoAcidSequence;
     }
 }

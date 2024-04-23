@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.io.*;
 import java.util.Scanner;
 import java.io.File;
@@ -27,6 +28,7 @@ public class Main {
         }
     }
 }
+
 // public class Main {
 //     public static void main(String[] args) {
 //         AminoAcid[] aminoAcids = {
@@ -52,8 +54,8 @@ public class Main {
 //             new AminoAcid("Valine", 'V', Arrays.asList("GTT", "GTC", "GTA", "GTG"))
 //         };
 
-//         ///for testing
-//         File sequenceFile = new File("measlesTestData/measlesSequenceRF1.csv");
+//         /for testing
+//         File sequenceFile = new File("measlesTestData/measlesSequenceRF3.csv");
 //         GenomeAnalyzer analyzer = null;
 
 //         try {
@@ -64,9 +66,14 @@ public class Main {
 //             return;
 //         }
 
-//         System.out.println("show analysis");
+//         System.out.println("show analysis\nAminoAcids");
 //         for (int i = 0; i < analyzer.getAminoAcidLength(); i++) {
 //             System.out.println(analyzer.getAminoAcid(i));
+//         }
+
+//         System.out.println("Genes");
+//         for (int i = 0; i < analyzer.getGeneLength(); i++) {
+//             System.out.println(analyzer.getGene(i));
 //         }
 //     }
 // }

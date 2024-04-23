@@ -11,6 +11,8 @@ public class GenomeAnalyzer {
 
     private AminoAcid[] aminoAcids;
     private ArrayList<Gene> genes;
+    
+    final int ORF = 50;
 
     /**
      * Takes a Sequence file and aminoAcids, start analysis
@@ -50,16 +52,28 @@ public class GenomeAnalyzer {
         String line = in.nextLine();
         String[] tokens = line.split(",");
         
+        Gene currentGene = null;
+        
         for (int i = 0; i < tokens.length; i++) {
-            for (AminoAcid aminoAcid : aminoAcids) {
-                List<String> codons = aminoAcid.getCodons();
+            String codon = tokens[i];
 
-                for (int j = 0; j < codons.size(); j++) {
-                    if(codons.get(j).equals(tokens[i])){
-                        aminoAcid.countCodon(j);
-                        break; //amino acid found
-                    }
+            if(codon.equals("ATG") && currentGene == null) //gene start
+            {
+                currentGene = new Gene(i * 3);
+            }
+            else if(codon.equals("TAG") || codon.equals("TAA") || codon.equals("TGA")) //gene end
+            { 
+                if(currentGene != null && currentGene.getAminoAcidLength() >= ORF){
+                    currentGene.addAminoAcid('*'); //adds end
+                    genes.add(currentGene);
                 }
+                currentGene = null;
+            }
+
+            AminoAcid find = findAminoAcid(codon);
+
+            if(find != null && currentGene != null){
+                currentGene.addAminoAcid(find.getSingleLetterCode());
             }
         }
 
@@ -67,13 +81,33 @@ public class GenomeAnalyzer {
     }
 
     /**
+     * Finds an amino acid with matching codon, adds to found amino acids codon count
+     * @param codon Set of 3 Nucleotides
+     * @return Amino acid
+     */
+    private AminoAcid findAminoAcid(String codon){
+        for (AminoAcid aminoAcid : aminoAcids) {
+            List<String> codons = aminoAcid.getCodons();
+            
+            for (int j = 0; j < codons.size(); j++) {
+                if(codons.get(j).equals(codon)){
+                    aminoAcid.countCodon(j);
+                    return aminoAcid; //amino acid found can break
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Clones amino acids resetting the counter
      * @param acids array of all acids
      */
-    private void cloneAminoAcids(AminoAcid[] acids){
+    /*private void cloneAminoAcids(AminoAcid[] acids){
         aminoAcids = new AminoAcid[acids.length];
         
-    }
+    }*/
     
     /**
      * gets the AminoAcid in aminoAcids array at i
