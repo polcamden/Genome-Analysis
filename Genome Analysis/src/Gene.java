@@ -38,7 +38,7 @@ public class Gene {
         endNucleotide += 3;
     }
 
-    public String toString(){
+    public String toString() {
         return startNucleotide + ".." + endNucleotide + "\n" + aminoAcidSequence;
     }
 }

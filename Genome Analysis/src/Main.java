@@ -2,12 +2,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.*;
 import java.util.Scanner;
-import java.io.File;
 public class Main {
     public static void main(String[] args)throws IOException {
     
         ArrayList<AminoAcid> aminoAcids = new ArrayList<AminoAcid>();
-        File aminoAcidTable = new File("src/aminoAcidTable.csv");
+        File aminoAcidTable = new File("src/genomeLabNeededFiles/aminoAcidTable.csv");
         Scanner infile = new Scanner(aminoAcidTable);
 
         //make an instance of an AminoAcid for each line of the file
@@ -23,10 +22,7 @@ public class Main {
             AminoAcid temp = new AminoAcid(tokens[0],tokens[2].charAt(0),codons);
             aminoAcids.add(temp);
         }
-        for (AminoAcid aminoAcid : aminoAcids) {
-            System.out.println(aminoAcid);
-        }
-    }
+    }   
 }
 
 // public class Main {

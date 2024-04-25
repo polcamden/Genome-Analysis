@@ -4,23 +4,32 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Takes a sequence file and amino acids file, analysis the amino acids and genes
+ * Takes a sequence file and amino acids file, analysis the amino acids and
+ * genes
  */
 public class GenomeAnalyzer {
     private File sequenceFile;
 
-    private AminoAcid[] aminoAcids;
+    // I switched out the raw array for an ArrayList! All methods have been
+    // converted to use that accordingly...
+    // However, the original code that uses arrays is still there and it all
+    // functions the same regardless!
+    // private AminoAcid[] aminoAcids;
+    private ArrayList<AminoAcid> aminoAcids;
+
     private ArrayList<Gene> genes;
-    
+
     final int ORF = 50;
 
     /**
      * Takes a Sequence file and aminoAcids, start analysis
+     * 
      * @param sequenceFile sequence file
      * @throws IOException
      */
-    public GenomeAnalyzer(File sequenceFile, AminoAcid[] aminoAcids) throws IOException
-    {
+    // public GenomeAnalyzer(File sequenceFile, AminoAcid[] aminoAcids) throws
+    // IOException
+    public GenomeAnalyzer(File sequenceFile, ArrayList<AminoAcid> aminoAcids) throws IOException {
         this.sequenceFile = sequenceFile;
         this.aminoAcids = aminoAcids;
         analyzeGenome();
@@ -28,43 +37,47 @@ public class GenomeAnalyzer {
 
     /**
      * copys a genomeAnalyzer
+     * 
      * @param genomeAnalyzer analyzer to clone
      * @throws IOException
      */
-    public GenomeAnalyzer(GenomeAnalyzer genomeAnalyzer) throws IOException{
+    public GenomeAnalyzer(GenomeAnalyzer genomeAnalyzer) throws IOException {
         sequenceFile = genomeAnalyzer.sequenceFile;
         aminoAcids = genomeAnalyzer.aminoAcids;
         analyzeGenome();
     }
 
+    // Note from Gianna: I made this method public, it was private
+    // before (lol)
+
     /**
-     * analysis the amino acids and genes 
+     * analysis the amino acids and genes
+     * 
      * @throws IOException invalid file
      */
-    private void analyzeGenome() throws IOException{
+    public void analyzeGenome() throws IOException {
         Scanner in = new Scanner(sequenceFile);
-        
-        //reset aminoAcids and genes
-        //cloneAminoAcids(aminoAcids); 
+
+        // reset aminoAcids and genes
+        // cloneAminoAcids(aminoAcids);
         genes = new ArrayList<>();
 
-        //gets amino acids from file
+        // gets amino acids from file
         String line = in.nextLine();
         String[] tokens = line.split(",");
-        
+
         Gene currentGene = null;
-        
+
         for (int i = 0; i < tokens.length; i++) {
             String codon = tokens[i];
 
-            if(codon.equals("ATG") && currentGene == null) //gene start
+            if (codon.equals("ATG") && currentGene == null) // gene start
             {
                 currentGene = new Gene(i * 3);
-            }
-            else if(codon.equals("TAG") || codon.equals("TAA") || codon.equals("TGA")) //gene end
-            { 
-                if(currentGene != null && currentGene.getAminoAcidLength() >= ORF){
-                    currentGene.addAminoAcid('*'); //adds end
+            } else if (codon.equals("TAG") || codon.equals("TAA") || codon.equals("TGA")) // gene end
+            {
+                if (currentGene != null && currentGene.getAminoAcidLength() >= ORF) {
+                    currentGene.addAminoAcid('*'); // adds end
                     genes.add(currentGene);
                 }
                 currentGene = null;
@@ -72,7 +85,7 @@ public class GenomeAnalyzer {
 
             AminoAcid find = findAminoAcid(codon);
 
-            if(find != null && currentGene != null){
+            if (find != null && currentGene != null) {
                 currentGene.addAminoAcid(find.getSingleLetterCode());
             }
         }
@@ -81,18 +94,20 @@ public class GenomeAnalyzer {
     }
 
     /**
-     * Finds an amino acid with matching codon, adds to found amino acids codon count
+     * Finds an amino acid with matching codon, adds to found amino acids codon
+     * count
+     * 
      * @param codon Set of 3 Nucleotides
      * @return Amino acid
      */
-    private AminoAcid findAminoAcid(String codon){
+    private AminoAcid findAminoAcid(String codon) {
         for (AminoAcid aminoAcid : aminoAcids) {
             List<String> codons = aminoAcid.getCodons();
-            
+
             for (int j = 0; j < codons.size(); j++) {
-                if(codons.get(j).equals(codon)){
+                if (codons.get(j).equals(codon)) {
                     aminoAcid.countCodon(j);
-                    return aminoAcid; //amino acid found can break
+                    return aminoAcid; // amino acid found can break
                 }
             }
         }
@@ -102,58 +117,90 @@ public class GenomeAnalyzer {
 
     /**
      * Clones amino acids resetting the counter
+     * 
      * @param acids array of all acids
      */
-    /*private void cloneAminoAcids(AminoAcid[] acids){
-        aminoAcids = new AminoAcid[acids.length];
-        
-    }*/
-    
+    /*
+     * private void cloneAminoAcids(AminoAcid[] acids){
+     * aminoAcids = new AminoAcid[acids.length];
+     * 
+     * }
+     */
+
     /**
      * gets the AminoAcid in aminoAcids array at i
+     * 
      * @param i index
      * @return AminoAcid
      */
-    public AminoAcid getAminoAcid(int i){
-        return aminoAcids[i];
+    public AminoAcid getAminoAcid(int i) {
+        // return aminoAcids[i];
+        return aminoAcids.get(i);
     }
 
     /**
      * gets the length of aminoAcid array
+     * 
      * @return aminoAcids array length
      */
-    public int getAminoAcidLength(){
-        return aminoAcids.length;
+    public int getAminoAcidLength() {
+        // return aminoAcids.length;
+        return aminoAcids.size();
     }
 
     /**
      * gets the Gene in genes list at i
+     * 
      * @param i index
      * @return Gene
      */
-    public Gene getGene(int i){
+    public Gene getGene(int i) {
         return genes.get(i);
     }
 
     /**
      * gets the length of genes list
+     * 
      * @return genes arrayList size
      */
-    public int getGeneLength(){
+    public int getGeneLength() {
         return genes.size();
     }
 
+    // @Override
+    // public String toString() {
+    // // return "GenomeAnalyzer File " + sequenceFile;
+
+    // }
+
+    // I also saw that this toString was missing some variables...
     @Override
     public String toString() {
-        return "GenomeAnalyzer File " + sequenceFile;
+        String retval = "";
+
+        retval += "Amino Acids: " + getAminoAcidLength() + "\n";
+        
+        for (int i = 0; i < getAminoAcidLength(); i++) {
+            retval += getAminoAcid(i) + ", ";
+        }
+
+        retval += "\n---\n";
+
+        retval += "Genes: " + getGeneLength() + "\n";
+
+        for (int i = 0; i < getGeneLength(); i++) {
+            retval += getGene(i) + ", ";
+        }
+
+        return retval;
     }
 
     @Override
     public boolean equals(Object obj) {
         boolean equal = false;
-        if(getClass() != obj.getClass()){
+        if (getClass() != obj.getClass()) {
             GenomeAnalyzer other = (GenomeAnalyzer) obj;
-            if(sequenceFile != null && sequenceFile.equals(other.sequenceFile)){
+            if (sequenceFile != null && sequenceFile.equals(other.sequenceFile)) {
                 equal = true;
             }
         }
@@ -161,11 +208,11 @@ public class GenomeAnalyzer {
         return equal;
     }
 
-    public GenomeAnalyzer clone(){
+    public GenomeAnalyzer clone() {
         GenomeAnalyzer analyzer = null;
-        try{
+        try {
             analyzer = new GenomeAnalyzer(this);
-        }catch(IOException e){
+        } catch (IOException e) {
             analyzer = null;
         }
 
