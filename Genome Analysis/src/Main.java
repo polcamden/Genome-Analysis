@@ -48,7 +48,12 @@ public class Main {
 
         outfile.close();
     }
-
+    /**
+     * 
+     * @param genomeAnalyzer genomeAnalyzer for the chosen reading frame
+     * @throws FileNotFoundException
+     * This method uses the GenomeAnalyzer class to print gene analysis file for the chosen reading frame
+     */
     public static void printFileGeneAnalysis(GenomeAnalyzer genomeAnalyzer) throws FileNotFoundException{
         File out = new File(genomeAnalyzer.getSequenceFileName() + "_GeneAnalysis.txt");
 
