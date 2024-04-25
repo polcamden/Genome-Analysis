@@ -167,13 +167,13 @@ public class GenomeAnalyzer {
         return genes.size();
     }
 
-    // @Override
-    // public String toString() {
-    // // return "GenomeAnalyzer File " + sequenceFile;
+    public String getSequenceFileName(){
 
-    // }
+        String str = sequenceFile.getName();
 
-    // I also saw that this toString was missing some variables...
+        return str.substring(0, str.length() - 4);
+    }
+
     @Override
     public String toString() {
         String retval = "";

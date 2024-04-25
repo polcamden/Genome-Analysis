@@ -1,9 +1,8 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.io.*;
 import java.util.Scanner;
 public class Main {
-    public static void main(String[] args)throws IOException {
+    public static void main(String[] args)throws IOException, FileNotFoundException {
     
         ArrayList<AminoAcid> aminoAcids = new ArrayList<AminoAcid>();
         File aminoAcidTable = new File("src/genomeLabNeededFiles/aminoAcidTable.csv");
@@ -22,7 +21,47 @@ public class Main {
             AminoAcid temp = new AminoAcid(tokens[0],tokens[2].charAt(0),codons);
             aminoAcids.add(temp);
         }
-    }   
+
+        infile.close();
+        /*for (AminoAcid aminoAcid : aminoAcids) {
+            System.out.println(aminoAcid);
+        }*/
+
+        File sequenceFile = new File("genomeLabNeededFiles/covidSequenceRF3.csv");
+
+        GenomeAnalyzer genomeAnalyzer = new GenomeAnalyzer(sequenceFile, aminoAcids.toArray(new AminoAcid[aminoAcids.size()]));
+
+        printFileAminoAcids(genomeAnalyzer);
+        printFileGeneAnalysis(genomeAnalyzer);
+    }
+
+    public static void printFileAminoAcids(GenomeAnalyzer genomeAnalyzer) throws FileNotFoundException{
+        File out = new File(genomeAnalyzer.getSequenceFileName() + "_CodonBias.txt");
+
+        PrintWriter outfile = new PrintWriter(out);
+
+        outfile.println("** Codon analysis for file: " + genomeAnalyzer.getSequenceFileName() + ".csv **\n");
+
+        for (int i = 0; i < genomeAnalyzer.getAminoAcidLength(); i++) {
+            outfile.println(genomeAnalyzer.getAminoAcid(i));
+        }
+
+        outfile.close();
+    }
+
+    public static void printFileGeneAnalysis(GenomeAnalyzer genomeAnalyzer) throws FileNotFoundException{
+        File out = new File(genomeAnalyzer.getSequenceFileName() + "_GeneAnalysis.txt");
+
+        PrintWriter outfile = new PrintWriter(out);
+
+        outfile.println("** Gene analysis for file: " + genomeAnalyzer.getSequenceFileName() + ".csv **\n");
+
+        for (int i = 0; i < genomeAnalyzer.getGeneLength(); i++) {
+            outfile.println(genomeAnalyzer.getGene(i) + "\n");
+        }
+
+        outfile.close();
+    }
 }
 
 // public class Main {
