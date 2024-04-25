@@ -28,7 +28,7 @@ public class Main {
             System.out.println(aminoAcid);
         }*/
 
-        File sequenceFile = new File("genomeLabNeededFiles/covidSequenceRF1.csv");
+        File sequenceFile = new File("genomeLabNeededFiles/covidSequenceRF3.csv");
 
         GenomeAnalyzer genomeAnalyzer = new GenomeAnalyzer(sequenceFile, aminoAcids.toArray(new AminoAcid[aminoAcids.size()]));
 
