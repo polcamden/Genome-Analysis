@@ -143,6 +143,13 @@ public class GenomeAnalyzer {
         return genes.size();
     }
 
+    public String getSequenceFileName(){
+
+        String str = sequenceFile.getName();
+
+        return str.substring(0, str.length() - 4);
+    }
+
     @Override
     public String toString() {
         return "GenomeAnalyzer File " + sequenceFile;
