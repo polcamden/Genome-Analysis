@@ -27,9 +27,9 @@ public class Main {
             System.out.println(aminoAcid);
         }*/
 
-        File sequenceFile = new File("genomeLabNeededFiles/covidSequenceRF3.csv");
+        File sequenceFile = new File("src/genomeLabNeededFiles/covidSequenceRF1.csv");
 
-        GenomeAnalyzer genomeAnalyzer = new GenomeAnalyzer(sequenceFile, aminoAcids.toArray(new AminoAcid[aminoAcids.size()]));
+        GenomeAnalyzer genomeAnalyzer = new GenomeAnalyzer(sequenceFile, aminoAcids);
 
         printFileAminoAcids(genomeAnalyzer);
         printFileGeneAnalysis(genomeAnalyzer);
@@ -57,6 +57,8 @@ public class Main {
         outfile.println("** Gene analysis for file: " + genomeAnalyzer.getSequenceFileName() + ".csv **\n");
 
         for (int i = 0; i < genomeAnalyzer.getGeneLength(); i++) {
+            outfile.println("(Gene " + i + ")");
+
             outfile.println(genomeAnalyzer.getGene(i) + "\n");
         }
 

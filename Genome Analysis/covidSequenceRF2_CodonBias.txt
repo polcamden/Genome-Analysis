@@ -1,0 +1,103 @@
+** Codon analysis for file: covidSequenceRF2.csv **
+
+Alanine
+GCT : 168
+GCC : 66
+GCA : 117
+GCG : 22
+
+Arginine
+CGT : 52
+CGC : 39
+CGA : 32
+CGG : 34
+AGA : 275
+AGG : 122
+
+Asparagine
+AAT : 262
+AAC : 206
+
+Aspartic Acid
+GAT : 165
+GAC : 124
+
+Cysteine
+TGT : 368
+TGC : 265
+
+Glutamine
+CAA : 232
+CAG : 88
+
+Glutamic Acid
+GAA : 186
+GAG : 83
+
+Glycine
+GGT : 147
+GGC : 85
+GGA : 112
+GGG : 48
+
+Histidine
+CAT : 174
+CAC : 157
+
+Isoleucine
+ATT : 211
+ATC : 110
+ATA : 119
+
+Leucine
+TTA : 234
+TTG : 179
+CTT : 205
+CTC : 78
+CTA : 104
+CTG : 82
+
+Lysine
+AAA : 291
+AAG : 112
+
+Methionine
+ATG : 114
+
+Phenylalanine
+TTT : 385
+TTC : 207
+
+Proline
+CCT : 107
+CCC : 38
+CCA : 113
+CCG : 30
+
+Serine
+TCT : 185
+TCC : 74
+TCA : 175
+TCG : 34
+AGT : 192
+AGC : 139
+
+Threonine
+ACT : 220
+ACC : 146
+ACA : 243
+ACG : 59
+
+Tryptophan
+TGG : 258
+
+Tyrosine
+TAT : 279
+TAC : 229
+
+Valine
+GTT : 234
+GTC : 102
+GTA : 123
+GTG : 93
+
