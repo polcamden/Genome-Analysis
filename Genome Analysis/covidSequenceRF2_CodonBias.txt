@@ -1,0 +1,103 @@
+** Codon analysis for file: covidSequenceRF2.csv **
+
+Alanine
+GCT : 168 45.04% 
+GCC : 66 17.69% 
+GCA : 117 31.37% 
+GCG : 22 5.90% 
+
+Arginine
+CGT : 52 9.39% 
+CGC : 39 7.04% 
+CGA : 32 5.78% 
+CGG : 34 6.14% 
+AGA : 275 49.64% 
+AGG : 122 22.02% 
+
+Asparagine
+AAT : 262 55.98% 
+AAC : 206 44.02% 
+
+Aspartic Acid
+GAT : 165 57.09% 
+GAC : 124 42.91% 
+
+Cysteine
+TGT : 368 58.14% 
+TGC : 265 41.86% 
+
+Glutamine
+CAA : 232 72.50% 
+CAG : 88 27.50% 
+
+Glutamic Acid
+GAA : 186 69.14% 
+GAG : 83 30.86% 
+
+Glycine
+GGT : 147 37.50% 
+GGC : 85 21.68% 
+GGA : 112 28.57% 
+GGG : 48 12.24% 
+
+Histidine
+CAT : 174 52.57% 
+CAC : 157 47.43% 
+
+Isoleucine
+ATT : 211 47.95% 
+ATC : 110 25.00% 
+ATA : 119 27.05% 
+
+Leucine
+TTA : 234 26.53% 
+TTG : 179 20.29% 
+CTT : 205 23.24% 
+CTC : 78 8.84% 
+CTA : 104 11.79% 
+CTG : 82 9.30% 
+
+Lysine
+AAA : 291 72.21% 
+AAG : 112 27.79% 
+
+Methionine
+ATG : 114 100.00% 
+
+Phenylalanine
+TTT : 385 65.03% 
+TTC : 207 34.97% 
+
+Proline
+CCT : 107 37.15% 
+CCC : 38 13.19% 
+CCA : 113 39.24% 
+CCG : 30 10.42% 
+
+Serine
+TCT : 185 23.15% 
+TCC : 74 9.26% 
+TCA : 175 21.90% 
+TCG : 34 4.26% 
+AGT : 192 24.03% 
+AGC : 139 17.40% 
+
+Threonine
+ACT : 220 32.93% 
+ACC : 146 21.86% 
+ACA : 243 36.38% 
+ACG : 59 8.83% 
+
+Tryptophan
+TGG : 258 100.00% 
+
+Tyrosine
+TAT : 279 54.92% 
+TAC : 229 45.08% 
+
+Valine
+GTT : 234 42.39% 
+GTC : 102 18.48% 
+GTA : 123 22.28% 
+GTG : 93 16.85% 
+
