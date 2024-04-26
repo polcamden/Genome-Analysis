@@ -9,12 +9,7 @@ import java.util.Scanner;
  */
 public class GenomeAnalyzer {
     private File sequenceFile;
-
-    // I switched out the raw array for an ArrayList! All methods have been
-    // converted to use that accordingly...
-    // However, the original code that uses arrays is still there and it all
-    // functions the same regardless!
-    // private AminoAcid[] aminoAcids;
+    
     private ArrayList<AminoAcid> aminoAcids;
 
     private ArrayList<Gene> genes;
@@ -26,9 +21,8 @@ public class GenomeAnalyzer {
      * 
      * @param sequenceFile sequence file
      * @throws IOException
+     * @author Camden
      */
-    // public GenomeAnalyzer(File sequenceFile, AminoAcid[] aminoAcids) throws
-    // IOException
     public GenomeAnalyzer(File sequenceFile, ArrayList<AminoAcid> aminoAcids) throws IOException {
         this.sequenceFile = sequenceFile;
         this.aminoAcids = aminoAcids;
@@ -40,6 +34,7 @@ public class GenomeAnalyzer {
      * 
      * @param genomeAnalyzer analyzer to clone
      * @throws IOException
+     * @author Camden
      */
     public GenomeAnalyzer(GenomeAnalyzer genomeAnalyzer) throws IOException {
         sequenceFile = genomeAnalyzer.sequenceFile;
@@ -47,103 +42,110 @@ public class GenomeAnalyzer {
         analyzeGenome();
     }
 
-    public void runMenu() throws FileNotFoundException {
-        Scanner scanner = new Scanner(System.in);
+    /*
+     * !!!! These next commented out methods were written by Nidhi 
+     * but I moved them to main and edited them to work with what
+     * Camden already wrote - Gianna
+     */
 
-        while (true) {
-            System.out.println("\nMenu:");
-            System.out.println("1. Lookup an Amino Acid by its Single-Letter Code");
-            System.out.println("2. Print a Report of All Amino Acids");
-            System.out.println("3. Find Genes and Track Amino Acids");
-            System.out.println("4. Exit");
-            System.out.print("Enter your choice: ");
+    
+    // public void runMenu() throws FileNotFoundException {
+    //     Scanner scanner = new Scanner(System.in);
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline character
+    //     while (true) {
+    //         System.out.println("\nMenu:");
+    //         System.out.println("1. Lookup an Amino Acid by its Single-Letter Code");
+    //         System.out.println("2. Print a Report of All Amino Acids");
+    //         System.out.println("3. Find Genes and Track Amino Acids");
+    //         System.out.println("4. Exit");
+    //         System.out.print("Enter your choice: ");
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter the single-letter code: ");
-                    char letter = scanner.nextLine().charAt(0);
-                    lookupAminoAcid(letter);
-                    break;
-                case 2:
-                    printAllAminoAcidsReport();
-                    break;
-                case 3:
-                    System.out.print("Enter the DNA sequence: ");
-                    String sequence = scanner.nextLine();
-                    findGenes(sequence);
-                    break;
-                case 4:
-                    System.out.println("Exiting...");
-                    scanner.close();
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please enter a number between 1 and 4.");
-            }
-        }
-    }
+    //         int choice = scanner.nextInt();
+    //         scanner.nextLine(); // consume newline character
 
-    public void lookupAminoAcid(char letter) {
-        for (AminoAcid aminoAcid : aminoAcids) {
-            if (aminoAcid.getSingleLetterCode() == letter) {
-                System.out.println("Name: " + aminoAcid.getFullName());
-                System.out.println("Letter: " + aminoAcid.getSingleLetterCode());
-                System.out.println("Codons: " + aminoAcid.getCodons());
-                return;
-            }
-        }
-        System.out.println("Amino acid not found for the given letter.");
-    }
+    //         switch (choice) {
+    //             case 1:
+    //                 System.out.print("Enter the single-letter code: ");
+    //                 char letter = scanner.nextLine().charAt(0);
+    //                 lookupAminoAcid(letter);
+    //                 break;
+    //             case 2:
+    //                 printAllAminoAcidsReport();
+    //                 break;
+    //             case 3:
+    //                 System.out.print("Enter the DNA sequence: ");
+    //                 String sequence = scanner.nextLine();
+    //                 findGenes(sequence);
+    //                 break;
+    //             case 4:
+    //                 System.out.println("Exiting...");
+    //                 scanner.close();
+    //                 return;
+    //             default:
+    //                 System.out.println("Invalid choice. Please enter a number between 1 and 4.");
+    //         }
+    //     }
+    // }
 
-    public void printAllAminoAcidsReport() throws FileNotFoundException {
-        File out = new File(getSequenceFileName() + "_CodonBias.txt");
-        PrintWriter outfile = new PrintWriter(out);
+    // public void lookupAminoAcid(char letter) {
+    //     for (AminoAcid aminoAcid : aminoAcids) {
+    //         if (aminoAcid.getSingleLetterCode() == letter) {
+    //             System.out.println("Name: " + aminoAcid.getFullName());
+    //             System.out.println("Letter: " + aminoAcid.getSingleLetterCode());
+    //             System.out.println("Codons: " + aminoAcid.getCodons());
+    //             return;
+    //         }
+    //     }
+    //     System.out.println("Amino acid not found for the given letter.");
+    // }
 
-        outfile.println("** Codon analysis **\n");
+    // public void printAllAminoAcidsReport() throws FileNotFoundException {
+    //     File out = new File(getSequenceFileName() + "_CodonBias.txt");
+    //     PrintWriter outfile = new PrintWriter(out);
 
-        for (AminoAcid aminoAcid : aminoAcids) {
-            outfile.println("Name: " + aminoAcid.getFullName());
-            outfile.println("Letter: " + aminoAcid.getSingleLetterCode());
-            outfile.println("Codons: " + aminoAcid.getCodons() + "\n");
-        }
+    //     outfile.println("** Codon analysis **\n");
 
-        outfile.close();
-        System.out.println("Report generated successfully.");
-    }
+    //     for (AminoAcid aminoAcid : aminoAcids) {
+    //         outfile.println("Name: " + aminoAcid.getFullName());
+    //         outfile.println("Letter: " + aminoAcid.getSingleLetterCode());
+    //         outfile.println("Codons: " + aminoAcid.getCodons() + "\n");
+    //     }
 
-    public void findGenes(String sequence) {
-        int codonCount = 0;
-        int geneStart = -1;
-        StringBuilder geneSequence = new StringBuilder();
+    //     outfile.close();
+    //     System.out.println("Report generated successfully.");
+    // }
 
-        for (int i = 0; i < sequence.length() - 2; i += 3) {
-            String codon = sequence.substring(i, i + 3);
-            codonCount++;
+    // public void findGenes(String sequence) {
+    //     int codonCount = 0;
+    //     int geneStart = -1;
+    //     StringBuilder geneSequence = new StringBuilder();
 
-            if (codon.equals("ATG")) {
-                if (geneStart == -1) {
-                    geneStart = codonCount;
-                    geneSequence.setLength(0);
-                }
-            }
+    //     for (int i = 0; i < sequence.length() - 2; i += 3) {
+    //         String codon = sequence.substring(i, i + 3);
+    //         codonCount++;
 
-            if (geneStart != -1) {
-                AminoAcid aminoAcid = findAminoAcid(codon);
-                if (aminoAcid != null) {
-                    geneSequence.append(aminoAcid.getSingleLetterCode());
-                }
+    //         if (codon.equals("ATG")) {
+    //             if (geneStart == -1) {
+    //                 geneStart = codonCount;
+    //                 geneSequence.setLength(0);
+    //             }
+    //         }
 
-                if (codon.equals("TAA") || codon.equals("TGA") || codon.equals("TAG")) {
-                    if (geneStart != -1) {
-                        System.out.println("Gene found from codon " + geneStart + " to " + codonCount + ": " + geneSequence.toString());
-                        geneStart = -1;
-                    }
-                }
-            }
-        }
-    }
+    //         if (geneStart != -1) {
+    //             AminoAcid aminoAcid = findAminoAcid(codon);
+    //             if (aminoAcid != null) {
+    //                 geneSequence.append(aminoAcid.getSingleLetterCode());
+    //             }
+
+    //             if (codon.equals("TAA") || codon.equals("TGA") || codon.equals("TAG")) {
+    //                 if (geneStart != -1) {
+    //                     System.out.println("Gene found from codon " + geneStart + " to " + codonCount + ": " + geneSequence.toString());
+    //                     geneStart = -1;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
     // Note from Gianna: I made this method public, it was private
     // before (lol)
@@ -152,6 +154,7 @@ public class GenomeAnalyzer {
      * analysis the amino acids and genes
      * 
      * @throws IOException invalid file
+     * @author Camden
      */
     public void analyzeGenome() throws IOException {
         Scanner in = new Scanner(sequenceFile);
@@ -197,6 +200,7 @@ public class GenomeAnalyzer {
      * 
      * @param codon Set of 3 Nucleotides
      * @return Amino acid
+     * @author Camden
      */
     private AminoAcid findAminoAcid(String codon) {
         for (AminoAcid aminoAcid : aminoAcids) {
@@ -230,6 +234,7 @@ public class GenomeAnalyzer {
      * 
      * @param i index
      * @return AminoAcid
+     * @author Camden
      */
     public AminoAcid getAminoAcid(int i) {
         // return aminoAcids[i];
@@ -240,6 +245,7 @@ public class GenomeAnalyzer {
      * gets the length of aminoAcid array
      * 
      * @return aminoAcids array length
+     * @author Camden
      */
     public int getAminoAcidLength() {
         // return aminoAcids.length;
@@ -251,6 +257,7 @@ public class GenomeAnalyzer {
      * 
      * @param i index
      * @return Gene
+     * @author Camden
      */
     public Gene getGene(int i) {
         return genes.get(i);
@@ -260,11 +267,16 @@ public class GenomeAnalyzer {
      * gets the length of genes list
      * 
      * @return genes arrayList size
+     * @author Camden
      */
     public int getGeneLength() {
         return genes.size();
     }
-
+    /**
+     * 
+     * @return file name
+     * @author Camden
+     */
     public String getSequenceFileName(){
 
         String str = sequenceFile.getName();
@@ -273,6 +285,10 @@ public class GenomeAnalyzer {
     }
 
     @Override
+    /**
+     * @return object as a string
+     * @author Camden
+     */
     public String toString() {
         String retval = "";
 
@@ -294,6 +310,10 @@ public class GenomeAnalyzer {
     }
 
     @Override
+    /**
+     * @return boolean if equal or not
+     * @author Camden
+     */
     public boolean equals(Object obj) {
         boolean equal = false;
         if (getClass() != obj.getClass()) {
@@ -305,7 +325,10 @@ public class GenomeAnalyzer {
 
         return equal;
     }
-
+    /**
+     * @return a clone GenomeAnalyzer
+     * @author Camden
+     */
     public GenomeAnalyzer clone() {
         GenomeAnalyzer analyzer = null;
         try {

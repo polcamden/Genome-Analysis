@@ -1,103 +1,103 @@
 ** Codon analysis for file: covidSequenceRF1.csv **
 
 Alanine
-GCT : 87
-GCC : 50
-GCA : 96
-GCG : 29
+GCT : 87 33.21% 
+GCC : 50 19.08% 
+GCA : 96 36.64% 
+GCG : 29 11.07% 
 
 Arginine
-CGT : 52
-CGC : 29
-CGA : 35
-CGG : 23
-AGA : 197
-AGG : 125
+CGT : 52 11.28% 
+CGC : 29 6.29% 
+CGA : 35 7.59% 
+CGG : 23 4.99% 
+AGA : 197 42.73% 
+AGG : 125 27.11% 
 
 Asparagine
-AAT : 188
-AAC : 211
+AAT : 188 47.12% 
+AAC : 211 52.88% 
 
 Aspartic Acid
-GAT : 56
-GAC : 75
+GAT : 56 42.75% 
+GAC : 75 57.25% 
 
 Cysteine
-TGT : 280
-TGC : 189
+TGT : 280 59.70% 
+TGC : 189 40.30% 
 
 Glutamine
-CAA : 218
-CAG : 184
+CAA : 218 54.23% 
+CAG : 184 45.77% 
 
 Glutamic Acid
-GAA : 97
-GAG : 92
+GAA : 97 51.32% 
+GAG : 92 48.68% 
 
 Glycine
-GGT : 62
-GGC : 48
-GGA : 70
-GGG : 52
+GGT : 62 26.72% 
+GGC : 48 20.69% 
+GGA : 70 30.17% 
+GGG : 52 22.41% 
 
 Histidine
-CAT : 177
-CAC : 188
+CAT : 177 48.49% 
+CAC : 188 51.51% 
 
 Isoleucine
-ATT : 287
-ATC : 118
-ATA : 172
+ATT : 287 49.74% 
+ATC : 118 20.45% 
+ATA : 172 29.81% 
 
 Leucine
-TTA : 362
-TTG : 362
-CTT : 271
-CTC : 114
-CTA : 271
-CTG : 257
+TTA : 362 22.11% 
+TTG : 362 22.11% 
+CTT : 271 16.55% 
+CTC : 114 6.96% 
+CTA : 271 16.55% 
+CTG : 257 15.70% 
 
 Lysine
-AAA : 272
-AAG : 248
+AAA : 272 52.31% 
+AAG : 248 47.69% 
 
 Methionine
-ATG : 300
+ATG : 300 100.00% 
 
 Phenylalanine
-TTT : 295
-TTC : 166
+TTT : 295 63.99% 
+TTC : 166 36.01% 
 
 Proline
-CCT : 83
-CCC : 41
-CCA : 96
-CCG : 26
+CCT : 83 33.74% 
+CCC : 41 16.67% 
+CCA : 96 39.02% 
+CCG : 26 10.57% 
 
 Serine
-TCT : 136
-TCC : 77
-TCA : 185
-TCG : 40
-AGT : 158
-AGC : 107
+TCT : 136 19.35% 
+TCC : 77 10.95% 
+TCA : 185 26.32% 
+TCG : 40 5.69% 
+AGT : 158 22.48% 
+AGC : 107 15.22% 
 
 Threonine
-ACT : 163
-ACC : 120
-ACA : 274
-ACG : 62
+ACT : 163 26.33% 
+ACC : 120 19.39% 
+ACA : 274 44.26% 
+ACG : 62 10.02% 
 
 Tryptophan
-TGG : 192
+TGG : 192 100.00% 
 
 Tyrosine
-TAT : 133
-TAC : 194
+TAT : 133 40.67% 
+TAC : 194 59.33% 
 
 Valine
-GTT : 152
-GTC : 70
-GTA : 177
-GTG : 272
+GTT : 152 22.65% 
+GTC : 70 10.43% 
+GTA : 177 26.38% 
+GTG : 272 40.54% 
 

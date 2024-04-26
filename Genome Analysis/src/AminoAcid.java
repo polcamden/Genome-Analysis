@@ -118,9 +118,16 @@ public class AminoAcid {
     @Override
     public String toString(){
         String str = getFullName() + '\n';
-
+        //get total codon count
+        int totalCodons = 0;
+        for(int i = 0; i < codonCounts.length; i++) {
+            totalCodons += codonCounts[i];
+        }
+        //use total condon count to print percentages here
         for (int i = 0; i < codonCounts.length; i++) {
-            str += codons.get(i) + " : " + codonCounts[i] + '\n';
+            str += codons.get(i) + " : " + codonCounts[i];
+            double percentage = (((double)codonCounts[i])/totalCodons) * 100;
+            str += String.format(" %.2f%% \n", percentage);
         }
 
         return str;

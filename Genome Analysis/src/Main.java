@@ -1,3 +1,11 @@
+/**
+ * This class lets the user choose a Covid-19 DNA reading frame and decide how to analyze it 
+ * 4-25-24
+ * section 200
+ * @author Camden
+ * @author Nidhi
+ * @author Gianna
+ */
 import java.util.ArrayList;
 import java.io.*;
 import java.util.Scanner;
@@ -23,18 +31,109 @@ public class Main {
         }
 
         infile.close();
-        /*for (AminoAcid aminoAcid : aminoAcids) {
-            System.out.println(aminoAcid);
-        }*/
+    
+        //create reading frame files
+        File RF1 = new File("src/genomeLabNeededFiles/covidSequenceRF1.csv");
+        File RF2 = new File("src/genomeLabNeededFiles/covidSequenceRF2.csv");
+        File RF3 = new File("src/genomeLabNeededFiles/covidSequenceRF3.csv");
 
-        File sequenceFile = new File("genomeLabNeededFiles/covidSequenceRF3.csv");
+        //ask what reading frame
+        Scanner kbd = new Scanner(System.in);
+        System.out.println("*** Covid-19 DNA Sequence Analyzer ***");
+        System.out.println("Please choose which reading frame to analyze:");
+        System.out.println("1: Reading frame 1\n2. Reading frame 2\n3. Reading frame 3");
+        System.out.print("Enter your choice: ");
+        int choice = kbd.nextInt();
 
-        GenomeAnalyzer genomeAnalyzer = new GenomeAnalyzer(sequenceFile, aminoAcids.toArray(new AminoAcid[aminoAcids.size()]));
+        switch(choice){
+            case 1: 
+                GenomeAnalyzer RF1Analyzer = new GenomeAnalyzer(RF1, aminoAcids);
+                runMenu(RF1Analyzer, aminoAcids);
+                break;
+            case 2:
+                GenomeAnalyzer RF2Analyzer = new GenomeAnalyzer(RF2, aminoAcids);
+                runMenu(RF2Analyzer, aminoAcids);
+                break;
+            case 3:
+                GenomeAnalyzer RF3Analyzer = new GenomeAnalyzer(RF3, aminoAcids);
+                runMenu(RF3Analyzer, aminoAcids);
+                break;
+            default:
+                System.out.println("Invalid choice. Please enter a number between 1 and 3: ");
+                choice = kbd.nextInt();
+                break;
+        }
+        kbd.close();
 
-        printFileAminoAcids(genomeAnalyzer);
-        printFileGeneAnalysis(genomeAnalyzer);
     }
+    /**
+     * This method prints the menu used after the user chooses the reading frame and calls other methods
+     * @param chosenReadingFrame reading frame used to analyze
+     * @param aminoAcids ArrayList of amino acids
+     * @throws FileNotFoundException
+     * @author Nidhi
+     * @author Gianna
+     */
+    public static void runMenu(GenomeAnalyzer chosenReadingFrame, ArrayList<AminoAcid> aminoAcids) throws FileNotFoundException {
+        Scanner scanner = new Scanner(System.in);
 
+        while (true) {
+            System.out.println("\nHow would you like to analyze?:");
+            System.out.println("1. Codon bias for a single amino acid");
+            System.out.println("2. Print a codon bias report");
+            System.out.println("3. Print a gene analysis report");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the single-letter code: ");
+                    char letter = scanner.nextLine().charAt(0);
+                    lookupAminoAcid(letter, aminoAcids);
+                    break;
+                case 2:
+                    printFileAminoAcids(chosenReadingFrame);
+                    System.out.println("Your file can be found in _CodonBias.txt");
+                    break;
+                case 3:
+                    printFileGeneAnalysis(chosenReadingFrame);
+                    System.out.println("Your file can be found in _GeneAnalysis.txt");
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 4.");
+                    choice = scanner.nextInt();
+            }
+        }
+    }
+    /**
+     * This method prints to the screen the codon bias for a specific amino acid
+     * @param letter the letter code of the animo acid
+     * @param aminoAcids the ArrayList of amino acids 
+     * @author Nidhi
+     * @author Gianna
+     */
+    public static void lookupAminoAcid(char letter, ArrayList<AminoAcid> aminoAcids) {
+        for (AminoAcid aminoAcid : aminoAcids) {
+            if (aminoAcid.getSingleLetterCode() == letter) {
+                System.out.println("\n" + aminoAcid);
+                return;
+            }
+        }
+        System.out.println("Amino acid not found for the given letter.");
+    }
+    /**
+     * This method uses the GenomeAnalyzer class to print the codon bias file for the chosen reading frame
+     * @param genomeAnalyzer the analyzer for the chosen reading frame
+     * @throws FileNotFoundException
+     * @author Camden
+     */
     public static void printFileAminoAcids(GenomeAnalyzer genomeAnalyzer) throws FileNotFoundException{
         File out = new File(genomeAnalyzer.getSequenceFileName() + "_CodonBias.txt");
 
@@ -49,10 +148,10 @@ public class Main {
         outfile.close();
     }
     /**
-     * 
+     * This method uses the GenomeAnalyzer class to print gene analysis file for the chosen reading frame
      * @param genomeAnalyzer genomeAnalyzer for the chosen reading frame
      * @throws FileNotFoundException
-     * This method uses the GenomeAnalyzer class to print gene analysis file for the chosen reading frame
+     * @author Camden
      */
     public static void printFileGeneAnalysis(GenomeAnalyzer genomeAnalyzer) throws FileNotFoundException{
         File out = new File(genomeAnalyzer.getSequenceFileName() + "_GeneAnalysis.txt");
@@ -68,52 +167,3 @@ public class Main {
         outfile.close();
     }
 }
-
-// public class Main {
-//     public static void main(String[] args) {
-//         AminoAcid[] aminoAcids = {
-//             new AminoAcid("Alanine", 'A', Arrays.asList("GCT", "GCC", "GCA", "GCG")),
-//             new AminoAcid("Arginine", 'R', Arrays.asList("CGT", "CGC", "CGA", "CGG", "AGA", "AGG")),
-//             new AminoAcid("Asparagine", 'N', Arrays.asList("AAT", "AAC")),
-//             new AminoAcid("Aspartic Acid", 'D', Arrays.asList("GAT", "GAC")),
-//             new AminoAcid("Cysteine", 'C', Arrays.asList("TGT", "TGC")),
-//             new AminoAcid("Glutamine", 'Q', Arrays.asList("CAA", "CAG")),
-//             new AminoAcid("Glutamic Acid", 'E', Arrays.asList("GAA", "GAG")),
-//             new AminoAcid("Glycine", 'G', Arrays.asList("GGT", "GGC", "GGA", "GGG")),
-//             new AminoAcid("Histidine", 'H', Arrays.asList("CAT", "CAC")),
-//             new AminoAcid("Isoleucine", 'I', Arrays.asList("ATT", "ATC", "ATA")),
-//             new AminoAcid("Leucine", 'L', Arrays.asList("TTA", "TTG", "CTT", "CTC", "CTA", "CTG")),
-//             new AminoAcid("Lysine", 'K', Arrays.asList("AAA", "AAG")),
-//             new AminoAcid("Methionine", 'M', Arrays.asList("ATG")),
-//             new AminoAcid("Phenylalanine", 'F', Arrays.asList("TTT", "TTC")),
-//             new AminoAcid("Proline", 'P', Arrays.asList("CCT", "CCC", "CCA", "CCG")),
-//             new AminoAcid("Serine", 'S', Arrays.asList("TCT", "TCC", "TCA", "TCG", "AGT", "AGC")),
-//             new AminoAcid("Threonine", 'T', Arrays.asList("ACT", "ACC", "ACA", "ACG")),
-//             new AminoAcid("Tryptophan", 'W', Arrays.asList("TGG")),
-//             new AminoAcid("Tyrosine", 'Y', Arrays.asList("TAT", "TAC")),
-//             new AminoAcid("Valine", 'V', Arrays.asList("GTT", "GTC", "GTA", "GTG"))
-//         };
-
-//         /for testing
-//         File sequenceFile = new File("measlesTestData/measlesSequenceRF3.csv");
-//         GenomeAnalyzer analyzer = null;
-
-//         try {
-//             analyzer = new GenomeAnalyzer(sequenceFile, aminoAcids);
-//         } catch (IOException e) {
-//             System.out.println("Invalid File, analysis unavailable");
-//             analyzer = null;
-//             return;
-//         }
-
-//         System.out.println("show analysis\nAminoAcids");
-//         for (int i = 0; i < analyzer.getAminoAcidLength(); i++) {
-//             System.out.println(analyzer.getAminoAcid(i));
-//         }
-
-//         System.out.println("Genes");
-//         for (int i = 0; i < analyzer.getGeneLength(); i++) {
-//             System.out.println(analyzer.getGene(i));
-//         }
-//     }
-// }

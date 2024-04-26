@@ -1,3 +1,7 @@
+/**
+ * This class stores the data for one Gene
+ * @author Nidhi
+ */
 public class Gene {
     private String aminoAcidSequence;
     private int startNucleotide;
@@ -32,6 +36,7 @@ public class Gene {
     /**
      * adds a amino acid to the sequence
      * @param aminoAcid amino acid single letter code
+     *
      */
     public void addAminoAcid(char aminoAcid){
         aminoAcidSequence += aminoAcid;
