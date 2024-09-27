@@ -1,1 +1,1 @@
-Genome Analysis final project for COSC 1437 at Collin College. This project takes a genetic sequence to analysis the codonBias and Genes. 
+Genome Analysis final project for COSC 1437 at Collin College. This program is designed to analyze genetic sequences to obtain the codon bias and genes. 
