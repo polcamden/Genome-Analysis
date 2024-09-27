@@ -1,2 +1,1 @@
-Hey there guys this is for code discussion and how we will divide our work.
-I still need to make changes to the amino acid code not the final i have to add all the data.
+Genome Analysis final project for COSC 1437 at Collin College. This project takes a genetic sequence to analysis the codonBias and Genes. 
